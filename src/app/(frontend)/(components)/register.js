@@ -76,9 +76,9 @@ export function Register({ handleBack }) {
             document
               .getElementById("register-page")
               .classList.add("slide-to-right");
-            if (typeof window !== "undefined") {
-              window.localStorage.setItem("backButtonClicked", "true");
-            }
+
+            window.localStorage.setItem("backButtonClicked", "true");
+
             router.push("/login");
             return 0;
           }
