@@ -23,6 +23,7 @@ import addMessagesId from "../../../../api/addMessagesId";
 import { getMessages } from "../../../../api/getMessages";
 import deleteMsgUnreadDm from "../../../../api/deleteMsgUnreadDm";
 import { getUserById } from "../../../../api/getUserById";
+import Loading from "../../(components)/Loading";
 
 const font = Josefin_Sans({
   weight: "400",
@@ -48,6 +49,7 @@ export default function Page() {
   const [dmFriendName, setDmFriendName] = useState("");
   const [dmFriendIcon, setDmFriendIcon] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // useEffect(() => {
   //   const getUser = async () => {
@@ -84,6 +86,8 @@ export default function Page() {
         }
       } catch (error) {
         console.error("Error fetching user:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchUser();
@@ -117,7 +121,7 @@ export default function Page() {
   const handleChannelClick = async (name, id) => {
     setChannelName(name);
     setChannelId(id);
-    setSelectedMiddleComponent(id);
+    setSelectedMiddleComponent(name);
     setRightComponent("channel");
 
     // Call deleteMsgUnread to remove unread messages for the current user
@@ -134,7 +138,7 @@ export default function Page() {
               ...channel,
               channelMsgs: channel.channelMsgs.map((msg) => ({
                 ...msg,
-                msgUnread: msg.msgUnread?.filter(
+                msgUnread: msg.msgUnread.filter(
                   (userId) => userId !== currentUser._id
                 ),
               })),
@@ -162,8 +166,6 @@ export default function Page() {
     setRightComponent("chat");
 
     if (currentUser) {
-      // console.log("currentUser", currentUser._id);
-      // console.log("id", id);
       await deleteMsgUnreadDm(id, currentUser._id);
     }
 
@@ -234,9 +236,8 @@ export default function Page() {
       setSelectedMiddleComponent(messageId);
     }
     // set icon, name
-    friend.icon
-      ? setDmFriendIcon(friend.icon)
-      : setDmFriendIcon("/robot_bot.png");
+    (friend.icon && setDmFriendIcon(friend.icon)) ||
+      setDmFriendIcon("/robot_bot.png");
     setDmFriendName(friend.displayName);
     console.log("friend", friend);
   };
@@ -249,6 +250,7 @@ export default function Page() {
 
   return (
     <ServerProvider>
+      {isLoading && <Loading />}
       <div
         className={`${font.className} flex h-screen items-center justify-between p-3 bg-blue-100`}
       >
@@ -276,7 +278,10 @@ export default function Page() {
               />
             )}
             {popupComponent === "directMessageAdd" && (
-              <DirectMessageAdd onClose={() => setPopupComponent("")} />
+              <DirectMessageAdd
+                onClose={() => setPopupComponent("")}
+                handleDm={handleDmClick}
+              />
             )}
           </div>
         )}

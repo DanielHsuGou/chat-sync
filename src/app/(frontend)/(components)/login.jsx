@@ -11,7 +11,6 @@ import SlideProvider, {
 import Required from "./required";
 import { signIn, useSession } from "next-auth/react";
 import Cookies from "js-cookie";
-import Loading from "@/app/(frontend)/(components)/Loading";
 
 export function Login() {
   const { data: session, status } = useSession();
@@ -32,22 +31,22 @@ export function Login() {
     slideLeftDispatch,
     slideRightDispatch,
   } = useSlide();
-  const [isLoading, setIsLoading] = useState(false);
 
   // Event value change of email field
   function emailOnChange(e) {
     setEmail(e.target.value);
+    setAccountIsNotVerified(false);
   }
 
   // Event value change of password field
   function passwordOnChange(e) {
     setPassword(e.target.value);
+    setAccountIsNotVerified(false);
   }
 
   // Submitting the login form
   async function loginSubmit(e) {
     e.preventDefault();
-    setIsLoading(true);
     // Check if the email is verified
 
     const resUserCheck = await fetch("/api/accountExists", {
@@ -62,7 +61,6 @@ export function Login() {
 
     if (user && !user.isVerified) {
       setIsNotVerified(true);
-      setIsLoading(false);
       return;
     } else {
       setIsNotVerified(false);
@@ -87,7 +85,6 @@ export function Login() {
           console.log(res.error);
           // Handle the error appropriately
           setAccountIsNotVerified(true); // Show invalid credentials warning
-          setIsLoading(false);
           return;
         }
         if (res.ok) {
@@ -112,7 +109,6 @@ export function Login() {
         }
       } catch (error) {
         console.log(error);
-        setIsLoading(false);
       }
     }
   }
@@ -293,85 +289,74 @@ export function Login() {
 
   return (
     <div className="bg-[#F6F6F6] md:mt-[5%] md:mr-6 pt-[24px] rounded-lg h-auto">
-      {isLoading ? (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-100 z-50">
-          <Loading />
-        </div>
-      ) : (
-        <form method="POST" noValidate onSubmit={loginSubmit}>
-          <div className="flex flex-col justify-start items-start mx-[24px] my-[24px]">
-            <label
-              htmlFor="email"
-              className="text-[12px] md:text-[16px] pb-1 text-[#1E1E1E]"
-            >
-              Email
-              {emailRequired ? <Required error={`Required`} /> : ""}
-              {emailValidate ? (
-                <Required error={`Invalid email format!`} />
-              ) : (
-                ""
-              )}
-              {isNotVerified && (
-                <Required
-                  error={`You have not verified your email address yet. Please check your inbox again.`}
-                />
-              )}
-              {accountIsNotVerified && (
-                <Required>Invalid credentials!</Required>
-              )}
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Email"
-              className="text-[12px] md:text-[16px] pl-2 text-gray-950 rounded-md md:h-[40px] h-[25px] w-full border-2 border-[#B3B3B3]"
-              value={email}
-              onChange={emailOnChange}
-              ref={ref}
-            ></input>
-          </div>
-          <div className="flex flex-col justify-start items-start mx-[24px] my-[24px]">
-            <label
-              htmlFor="password"
-              className="text-[12px] md:text-[16px] pb-1 text-[#1E1E1E]"
-            >
-              Password
-              {passwordRequired ? <Required error={`Required`} /> : ""}
-            </label>
-
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Password"
-              className="text-[12px] md:text-[16px] pl-2 text-gray-950 rounded-md h-[25px] md:h-[40px] w-full border-2 border-[#B3B3B3]"
-              value={password}
-              onChange={passwordOnChange}
-            ></input>
-          </div>
-          <div className="flex flex-col justify-start items-start mx-[24px] my-[24px]">
-            <Button
-              id="signInButton"
-              size="default"
-              variant="default"
-              className="text-[12px] md:text-[16px] bg-[#1D33A8] text-[#F5F5F5] rounded-md h-[25px] md:h-[40px] w-full"
-            >
-              Sign In
-            </Button>
-            <div className="flex justify-start items-center mt-[24px]">
-              <Switch
-                isOn={isOn}
-                handleToggle={() => setIsOn(!isOn)}
-                onColor="rgb(59, 130, 246)"
+      <form method="POST" noValidate onSubmit={loginSubmit}>
+        <div className="flex flex-col justify-start items-start mx-[24px] my-[24px]">
+          <label
+            htmlFor="email"
+            className="text-[12px] md:text-[16px] pb-1 text-[#1E1E1E]"
+          >
+            Email
+            {emailRequired ? <Required error={`Required`} /> : ""}
+            {emailValidate ? <Required error={`Invalid email format!`} /> : ""}
+            {isNotVerified && (
+              <Required
+                error={`You have not verified your email address yet. Please check your inbox again.`}
               />
-              <div className="text-[#1E1E1E] mx-3 md:pt-1 text-[13px] md:text-[20px]">
-                Remember Me
-              </div>
+            )}
+            {accountIsNotVerified && <Required>Invalid credentials!</Required>}
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Email"
+            className="text-[12px] md:text-[16px] pl-2 text-gray-950 rounded-md md:h-[40px] h-[25px] w-full border-2 border-[#B3B3B3]"
+            value={email}
+            onChange={emailOnChange}
+            ref={ref}
+          ></input>
+        </div>
+        <div className="flex flex-col justify-start items-start mx-[24px] my-[24px]">
+          <label
+            htmlFor="password"
+            className="text-[12px] md:text-[16px] pb-1 text-[#1E1E1E]"
+          >
+            Password
+            {passwordRequired ? <Required error={`Required`} /> : ""}
+          </label>
+
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            className="text-[12px] md:text-[16px] pl-2 text-gray-950 rounded-md h-[25px] md:h-[40px] w-full border-2 border-[#B3B3B3]"
+            value={password}
+            onChange={passwordOnChange}
+          ></input>
+        </div>
+        <div className="flex flex-col justify-start items-start mx-[24px] my-[24px]">
+          <Button
+            id="signInButton"
+            size="default"
+            variant="default"
+            className="text-[12px] md:text-[16px] bg-[#1D33A8] text-[#F5F5F5] rounded-md h-[25px] md:h-[40px] w-full"
+          >
+            Sign In
+          </Button>
+          <div className="flex justify-start items-center mt-[24px]">
+            <Switch
+              isOn={isOn}
+              handleToggle={() => setIsOn(!isOn)}
+              onColor="rgb(59, 130, 246)"
+            />
+            <div className="text-[#1E1E1E] mx-3 md:pt-1 text-[13px] md:text-[20px]">
+              Remember Me
             </div>
           </div>
-        </form>
-      )}
+        </div>
+      </form>
+
       <div className="mx-[24px] flex justify-between items-center">
         <div className="h-0 w-16 md:w-44 border border-gray-300"></div>
         <span className="min-w-[100px] text-[13px] md:text-[13px] text-[#aeb5bf] font-semibold">

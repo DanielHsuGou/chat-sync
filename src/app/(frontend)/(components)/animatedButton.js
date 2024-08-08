@@ -1,11 +1,11 @@
 import React from "react";
 import { FaTrash } from "react-icons/fa";
-import styles from "./animatedButton.css";
+import "./animatedButton.css";
 
 const AnimatedButton = () => {
   return (
-    <div className={`${styles.animatedButton}`}>
-      <FaTrash className={styles.icon} />
+    <div className="animated-button">
+      <FaTrash className="icon" />
     </div>
   );
 };
