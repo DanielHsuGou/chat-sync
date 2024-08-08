@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"],
+      "libs/*": ["./libs/*"],
+      "api/*": ["./src/app/(backend)/api/*"],
+      "models/*": ["./models/*"]
+    }
+  }
+}

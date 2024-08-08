@@ -1,0 +1,55 @@
+.slide-to-right {
+  /* slide to the right */
+  animation: slideOutAnimation 0.4s forwards;
+}
+
+@keyframes slideOutAnimation {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.slide-from-left {
+  /* slide from the left */
+  animation: slideInAnimation 0.4s forwards;
+}
+
+@keyframes slideInAnimation {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slide-to-left {
+  /* slide to the left */
+  animation: slideLeftAnimation 0.4s forwards;
+}
+
+@keyframes slideLeftAnimation {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.slide-from-right {
+  /* slide from the right */
+  animation: slideRightAnimation 0.4s forwards;
+}
+
+@keyframes slideRightAnimation {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

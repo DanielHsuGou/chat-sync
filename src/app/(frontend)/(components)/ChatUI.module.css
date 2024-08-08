@@ -1,0 +1,29 @@
+/* For WebKit-based browsers (Chrome, Safari) */
+.scrollableContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollableContent::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.scrollableContent::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.scrollableContent::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* For Firefox */
+.scrollableContent {
+  scrollbar-width: thin;
+  scrollbar-color: #a5baff #ffffff;
+}
+
+/* Optional for IE/Edge */
+.scrollableContent {
+  -ms-overflow-style: -ms-autohiding-scrollbar; /* Hide scrollbar when not scrolling */
+}
