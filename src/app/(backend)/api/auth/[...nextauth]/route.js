@@ -40,30 +40,15 @@ const options = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      authorization: {
-        params: {
-          redirect_uri: "https://sync-fewd-11.vercel.app/chat",
-        },
-      },
     }),
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      authorization: {
-        params: {
-          redirect_uri: "https://sync-fewd-11.vercel.app/chat",
-        },
-      },
       scope: "email",
     }),
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      authorization: {
-        params: {
-          redirect_uri: "https://sync-fewd-11.vercel.app/chat",
-        },
-      },
     }),
   ],
   session: {
