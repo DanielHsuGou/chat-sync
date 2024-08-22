@@ -26,6 +26,7 @@ import { getUserById } from "../../../../api/getUserById";
 import Loading from "../../(components)/Loading";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { motion, AnimatePresence } from "framer-motion";
+import Head from "next/head";
 
 const font = Josefin_Sans({
   weight: "400",
@@ -264,130 +265,106 @@ export default function Page() {
   };
 
   return (
-    <ServerProvider>
-      {isLoading && <Loading />}
-      {!isLoading && (
-        <div
-          className={`${font.className} flex h-screen items-center justify-between sm:p-3 pr-2 py-2 bg-blue-100 overflow-hidden`}
-        >
-          <LoggedOutSessionCheck />
-          <Sidebar
-            onclickChat={handleChatClick}
-            onclickServer={handleServerClick}
-            onclickAddServer={() => togglePopupComponent("addServer")}
-            onclickNotification={() => togglePopupComponent("notification")}
-            onclickProfile={() => togglePopupComponent("profile")}
-            selectedLeftComponent={selectedLeftComponent}
-            setSelectedMiddleComponent={setSelectedMiddleComponent}
-            setRightComponent={setRightComponent}
-            toggleRightComponent={toggleRightComponent}
-            setToggleRightComponent={setToggleRightComponent}
-          />
-          {popupComponent && (
-            <div>
-              {popupComponent === "addServer" && (
-                <ServerModal onClose={() => setPopupComponent("")} />
-              )}
-              {popupComponent === "notification" && (
-                <Notification onClose={() => setPopupComponent("")} />
-              )}
-              {popupComponent === "profile" && (
-                <ProfileCard
-                  onClose={() => setPopupComponent("")}
-                  username="Chuuthiya"
-                />
-              )}
-              {popupComponent === "directMessageAdd" && (
-                <DirectMessageAdd
-                  onClose={() => setPopupComponent("")}
-                  handleDm={handleDmFriendClick}
-                  onclickFriend={handleFriendMenu}
-                  setCurrentCategory={setCurrentCategory}
-                />
-              )}
-            </div>
-          )}
+    <>
+      <Head>
+        <meta
+          name="viewport"
+          content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi"
+        />
+      </Head>
+      <ServerProvider>
+        {isLoading && <Loading />}
+        {!isLoading && (
+          <div
+            className={`${font.className} flex h-screen items-center justify-between sm:p-3 pr-2 py-2 bg-blue-100 overflow-hidden`}
+          >
+            <LoggedOutSessionCheck />
+            <Sidebar
+              onclickChat={handleChatClick}
+              onclickServer={handleServerClick}
+              onclickAddServer={() => togglePopupComponent("addServer")}
+              onclickNotification={() => togglePopupComponent("notification")}
+              onclickProfile={() => togglePopupComponent("profile")}
+              selectedLeftComponent={selectedLeftComponent}
+              setSelectedMiddleComponent={setSelectedMiddleComponent}
+              setRightComponent={setRightComponent}
+              toggleRightComponent={toggleRightComponent}
+              setToggleRightComponent={setToggleRightComponent}
+            />
+            {popupComponent && (
+              <div>
+                {popupComponent === "addServer" && (
+                  <ServerModal onClose={() => setPopupComponent("")} />
+                )}
+                {popupComponent === "notification" && (
+                  <Notification onClose={() => setPopupComponent("")} />
+                )}
+                {popupComponent === "profile" && (
+                  <ProfileCard
+                    onClose={() => setPopupComponent("")}
+                    username="Chuuthiya"
+                  />
+                )}
+                {popupComponent === "directMessageAdd" && (
+                  <DirectMessageAdd
+                    onClose={() => setPopupComponent("")}
+                    handleDm={handleDmFriendClick}
+                    onclickFriend={handleFriendMenu}
+                    setCurrentCategory={setCurrentCategory}
+                  />
+                )}
+              </div>
+            )}
 
-          {middleComponent === "menu" && (
-            <div
-              className={`flex lg:w-[40%] w-full lg:min-w-[360px] min-w-[280px] h-full overflow-hidden lg:mx-3 ml-3 rounded-2xl flex-col gap-3 justify-between`}
-            >
-              <SearchBar />
-              <Menu
-                onclickDirectMessageAdd={() =>
-                  togglePopupComponent("directMessageAdd")
-                }
-                onclickFriend={handleFriendMenu}
-                onclickServer={handleServerMenu}
-                selectedMiddleComponent={selectedMiddleComponent}
-                // setToggleRightComponent={setToggleRightComponent}
-              />
-              <DirectMessages
-                onclickDmUser={handleDmClick}
-                selectedMiddleComponent={selectedMiddleComponent}
-                currentUser={currentUser}
-                userMessages={userMessages}
-              />
-            </div>
-          )}
-          {middleComponent === "channel" && (
-            <div
-              className={`lg:w-[40%] w-full lg:min-w-[360px] min-w-[280px] h-full overflow-hidden lg:mx-3 ml-3 rounded-2xl shadow-md shadow-sky-400/40`}
-            >
-              <ChannelBar
-                selectedMiddleComponent={selectedMiddleComponent}
-                selectedLeftComponent={selectedLeftComponent}
-                handleChatClick={handleChatClick}
-                handleChannelClick={handleChannelClick}
-                serverChannels={serverChannels}
-                setServerChannels={setServerChannels}
-              />
-            </div>
-          )}
-          {rightComponent === "" && (
-            <div className="h-full w-full lg:ml-0 md:ml-3 ml-2 lg:flex lg:flex-col lg:justify-center lg:items-center hidden">
-              <Player
-                autoplay
-                loop
-                src="/channel_robot.json"
-                style={{ height: "540px", width: "540px" }}
-              />
-              <p className="text-gray-400 text-xl">Please Select a Channel</p>
-            </div>
-          )}
-          {rightComponent === "chat" && (
-            <div className="h-full w-full lg:ml-0 md:ml-3 ml-2 lg:block hidden">
-              <ChatUI
-                messagesId={messagesId}
-                icon={dmFriendIcon}
-                name={dmFriendName}
-                userMessages={userMessages}
-                setUserMessages={setUserMessages}
-              />
-            </div>
-          )}
-          {rightComponent === "channel" && (
-            <div className="h-full w-full lg:ml-0 md:ml-3 ml-2 lg:block hidden">
-              <ChannelUI
-                channelId={channelId}
-                name={channelName}
-                serverChannels={serverChannels}
-                setServerChannels={setServerChannels}
-                msg={msg}
-                setMsg={setMsg}
-                setRightComponent={setRightComponent}
-              />
-            </div>
-          )}
-          <AnimatePresence>
-            {rightComponent === "chat" && (
-              <motion.div
-                initial={{ x: "100vw" }}
-                animate={{ x: 0 }}
-                exit={{ x: "100vw" }}
-                transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-                className="h-full p-2 pr-4 w-[91.5%] lg:hidden block fixed lg:left-28 md:left-24 md:p-3 md:pr-4 md:w-[89.5%] sm:left-24 sm:p-3 sm:pr-4 sm:w-[87%] left-12 bg-blue-100"
+            {middleComponent === "menu" && (
+              <div
+                className={`flex lg:w-[40%] w-full lg:min-w-[360px] min-w-[280px] h-full overflow-hidden lg:mx-3 ml-3 rounded-2xl flex-col gap-3 justify-between`}
               >
+                <SearchBar />
+                <Menu
+                  onclickDirectMessageAdd={() =>
+                    togglePopupComponent("directMessageAdd")
+                  }
+                  onclickFriend={handleFriendMenu}
+                  onclickServer={handleServerMenu}
+                  selectedMiddleComponent={selectedMiddleComponent}
+                  // setToggleRightComponent={setToggleRightComponent}
+                />
+                <DirectMessages
+                  onclickDmUser={handleDmClick}
+                  selectedMiddleComponent={selectedMiddleComponent}
+                  currentUser={currentUser}
+                  userMessages={userMessages}
+                />
+              </div>
+            )}
+            {middleComponent === "channel" && (
+              <div
+                className={`lg:w-[40%] w-full lg:min-w-[360px] min-w-[280px] h-full overflow-hidden lg:mx-3 ml-3 rounded-2xl shadow-md shadow-sky-400/40`}
+              >
+                <ChannelBar
+                  selectedMiddleComponent={selectedMiddleComponent}
+                  selectedLeftComponent={selectedLeftComponent}
+                  handleChatClick={handleChatClick}
+                  handleChannelClick={handleChannelClick}
+                  serverChannels={serverChannels}
+                  setServerChannels={setServerChannels}
+                />
+              </div>
+            )}
+            {rightComponent === "" && (
+              <div className="h-full w-full lg:ml-0 md:ml-3 ml-2 lg:flex lg:flex-col lg:justify-center lg:items-center hidden">
+                <Player
+                  autoplay
+                  loop
+                  src="/channel_robot.json"
+                  style={{ height: "540px", width: "540px" }}
+                />
+                <p className="text-gray-400 text-xl">Please Select a Channel</p>
+              </div>
+            )}
+            {rightComponent === "chat" && (
+              <div className="h-full w-full lg:ml-0 md:ml-3 ml-2 lg:block hidden">
                 <ChatUI
                   messagesId={messagesId}
                   icon={dmFriendIcon}
@@ -395,16 +372,10 @@ export default function Page() {
                   userMessages={userMessages}
                   setUserMessages={setUserMessages}
                 />
-              </motion.div>
+              </div>
             )}
             {rightComponent === "channel" && (
-              <motion.div
-                initial={{ x: "100vw" }}
-                animate={{ x: 0 }}
-                exit={{ x: "100vw" }}
-                transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-                className="h-full p-2 pr-4 w-[91.5%] lg:hidden block fixed lg:left-28 md:left-24 md:p-3 md:pr-4 md:w-[89.5%] sm:left-24 sm:p-3 sm:pr-4 sm:w-[87%] left-12 bg-blue-100"
-              >
+              <div className="h-full w-full lg:ml-0 md:ml-3 ml-2 lg:block hidden">
                 <ChannelUI
                   channelId={channelId}
                   name={channelName}
@@ -414,68 +385,122 @@ export default function Page() {
                   setMsg={setMsg}
                   setRightComponent={setRightComponent}
                 />
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
+            <AnimatePresence>
+              {rightComponent === "chat" && (
+                <motion.div
+                  initial={{ x: "100vw" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "100vw" }}
+                  transition={{
+                    type: "tween",
+                    duration: 0.3,
+                    ease: "easeInOut",
+                  }}
+                  className="h-full p-2 pr-4 w-[91.5%] lg:hidden block fixed lg:left-28 md:left-24 md:p-3 md:pr-4 md:w-[89.5%] sm:left-24 sm:p-3 sm:pr-4 sm:w-[87%] left-12 bg-blue-100"
+                >
+                  <ChatUI
+                    messagesId={messagesId}
+                    icon={dmFriendIcon}
+                    name={dmFriendName}
+                    userMessages={userMessages}
+                    setUserMessages={setUserMessages}
+                  />
+                </motion.div>
+              )}
+              {rightComponent === "channel" && (
+                <motion.div
+                  initial={{ x: "100vw" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "100vw" }}
+                  transition={{
+                    type: "tween",
+                    duration: 0.3,
+                    ease: "easeInOut",
+                  }}
+                  className="h-full p-2 pr-4 w-[91.5%] lg:hidden block fixed lg:left-28 md:left-24 md:p-3 md:pr-4 md:w-[89.5%] sm:left-24 sm:p-3 sm:pr-4 sm:w-[87%] left-12 bg-blue-100"
+                >
+                  <ChannelUI
+                    channelId={channelId}
+                    name={channelName}
+                    serverChannels={serverChannels}
+                    setServerChannels={setServerChannels}
+                    msg={msg}
+                    setMsg={setMsg}
+                    setRightComponent={setRightComponent}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-          {rightComponent === "friend" && (
-            <div className="h-full w-full lg:block hidden">
-              <FriendUI
-                handleDmFriendClick={handleDmFriendClick}
-                currentCategory={currentCategory}
-                setCurrentCategory={setCurrentCategory}
-              />
-            </div>
-          )}
-          {rightComponent === "server" && (
-            <div className="w-full h-full lg:block hidden">
-              <ServerUI
-                onclickAddServer={() => togglePopupComponent("addServer")}
-                currentCategory={currentCategory}
-                setCurrentCategory={setCurrentCategory}
-              />
-            </div>
-          )}
-          <AnimatePresence>
-            {toggleRightComponent === "server" && (
-              <motion.div
-                initial={{ x: "100vw" }}
-                animate={{ x: 0 }}
-                exit={{ x: "100vw" }}
-                transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-                className="w-full h-full lg:hidden fixed sm:left-24 left-12 z-100 bg-blue-100"
-              >
-                <ServerUI
-                  onclickAddServer={() => togglePopupComponent("addServer")}
-                  currentCategory={currentCategory}
-                  setCurrentCategory={setCurrentCategory}
-                />
-              </motion.div>
-            )}
-            {toggleRightComponent === "friend" && (
-              <motion.div
-                initial={{ x: "100vw" }}
-                animate={{ x: 0 }}
-                exit={{ x: "100vw" }}
-                transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-                className="h-full w-full lg:hidden fixed sm:left-24 left-12 z-100 bg-blue-100"
-              >
+            {rightComponent === "friend" && (
+              <div className="h-full w-full lg:block hidden">
                 <FriendUI
                   handleDmFriendClick={handleDmFriendClick}
                   currentCategory={currentCategory}
                   setCurrentCategory={setCurrentCategory}
                 />
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
-          {/* <div
+            {rightComponent === "server" && (
+              <div className="w-full h-full lg:block hidden">
+                <ServerUI
+                  onclickAddServer={() => togglePopupComponent("addServer")}
+                  currentCategory={currentCategory}
+                  setCurrentCategory={setCurrentCategory}
+                />
+              </div>
+            )}
+            <AnimatePresence>
+              {toggleRightComponent === "server" && (
+                <motion.div
+                  initial={{ x: "100vw" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "100vw" }}
+                  transition={{
+                    type: "tween",
+                    duration: 0.3,
+                    ease: "easeInOut",
+                  }}
+                  className="w-full h-full lg:hidden fixed sm:left-24 left-12 z-100 bg-blue-100"
+                >
+                  <ServerUI
+                    onclickAddServer={() => togglePopupComponent("addServer")}
+                    currentCategory={currentCategory}
+                    setCurrentCategory={setCurrentCategory}
+                  />
+                </motion.div>
+              )}
+              {toggleRightComponent === "friend" && (
+                <motion.div
+                  initial={{ x: "100vw" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "100vw" }}
+                  transition={{
+                    type: "tween",
+                    duration: 0.3,
+                    ease: "easeInOut",
+                  }}
+                  className="h-full w-full lg:hidden fixed sm:left-24 left-12 z-100 bg-blue-100"
+                >
+                  <FriendUI
+                    handleDmFriendClick={handleDmFriendClick}
+                    currentCategory={currentCategory}
+                    setCurrentCategory={setCurrentCategory}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+            {/* <div
           onClick={() => handleDmFriendClick(friendidDemo)}
           className="fixed bottom-0 right-0"
         >
           <button>DM friend</button>
         </div> */}
-        </div>
-      )}
-    </ServerProvider>
+          </div>
+        )}
+      </ServerProvider>
+    </>
   );
 }
