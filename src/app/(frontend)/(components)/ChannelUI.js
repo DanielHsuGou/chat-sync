@@ -30,6 +30,7 @@ export default function ChannelUI({
   setServerChannels,
   msg,
   setMsg,
+  setRightComponent,
 }) {
   const { servers, setServers, selectedServer, currentUser } =
     useContext(ServerContext);
@@ -141,6 +142,7 @@ export default function ChannelUI({
   };
 
   const handleDeleteChannel = async () => {
+    setRightComponent("");
     try {
       await deleteServerChannelfromServer(selectedServer?._id, channelId);
       await deleteServerChannel(channelId);
@@ -296,7 +298,7 @@ export default function ChannelUI({
       onDrop={handleDrop}
       className={`${font.className} ${
         isDragOver ? "border-2 border-dashed border-blue-500" : "border-none"
-      } min-w-[400px] h-full bg-white rounded-2xl flex flex-col shadow-md shadow-sky-400/40`}
+      } sm:min-w-[400px] h-full bg-white rounded-2xl flex flex-col shadow-md shadow-sky-400/40`}
     >
       <ChannelHeader name={name} handleDeleteChannel={handleDeleteChannel} />
       {loading && (

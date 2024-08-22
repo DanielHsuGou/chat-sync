@@ -12,9 +12,12 @@ export default function Menu({
       <div className="w-full rounded-3xl bg-white text-black">
         <button
           className={`flex items-center w-full py-2 px-4 gap-2 rounded-t-3xl hover:bg-blue-200 transition-colors ${
-            selectedMiddleComponent === "server" ? "bg-blue-200" : ""
+            selectedMiddleComponent === "server" ? "lg:bg-blue-200" : ""
           }`}
-          onClick={onclickServer}
+          onClick={() => {
+            onclickServer();
+            // setToggleRightComponent("server");
+          }}
         >
           <FaInbox style={{ width: "1.5em", height: "1.5em" }} />
           <span className=" p-1 ml-2 font-bold text-md">Servers</span>
@@ -24,7 +27,10 @@ export default function Menu({
           className={`flex items-center w-full py-2 px-4 gap-2 rounded-b-3xl hover:bg-blue-200 transition-colors ${
             selectedMiddleComponent === "friend" ? "bg-blue-200" : ""
           }`}
-          onClick={onclickFriend}
+          onClick={() => {
+            onclickFriend();
+            // setToggleRightComponent("friend");
+          }}
         >
           <FaRegStar style={{ width: "1.5em", height: "1.5em" }} />
           <span className="p-1 ml-2 font-bold text-md">Friends</span>

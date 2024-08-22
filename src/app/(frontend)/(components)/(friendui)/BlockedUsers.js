@@ -19,7 +19,7 @@ export default function BlockedUsers(
 ) {
   const blockedUsers = useContext(BlockedUsersContext);
   return (
-    <div className="flex flex-col gap-5 px-5 -mb-2 mt-10 h-full overflow-scroll custom-scrollbar">
+    <div className="flex flex-col sm:gap-5 gap-3 -mb-2 h-full overflow-scroll custom-scrollbar p-5 lg:mt-5 sm:mt-2 mt-1">
       <div className="font-bold text-xl">Blocked Users</div>
       <div className="flex flex-col gap-3 h-full overflow-scroll custom-scrollbar">
         {blockedUsers.length > 0 &&
@@ -49,8 +49,9 @@ export default function BlockedUsers(
               height={300}
               alt="Sync.dev friend image"
               src="/no_blocked.png"
+              className="sm:w-72 sm:h-72 w-60 h-60"
             />
-            <div className="text-gray-400 text-center w-60">
+            <div className="text-gray-400 text-wrap text-center sm:w-full w-48 sm:text-base text-sm">
               Seems like you haven&apos;t blocked anyone yet.
             </div>
           </div>

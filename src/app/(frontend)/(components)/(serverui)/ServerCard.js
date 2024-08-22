@@ -122,18 +122,20 @@ export default function ServerCard({
   };
 
   return (
-    <div className="w-full h-28 bg-white rounded-2xl flex flex-col gap-3 justify-between py-8 px-5 shadow-sm shadow-sky-300/50 relative">
-      <div className="bg-white rounded-full w-16 h-16 bg-cover absolute -top-8 left-5 flex items-center justify-center">
+    <div className="w-full sm:h-28 h-24 bg-white rounded-2xl flex flex-col sm:gap-3 gap-1 justify-between sm:py-8 py-3 px-5 shadow-sm shadow-sky-300/50 relative">
+      <div className="bg-white rounded-full sm:w-16 sm:h-16 w-14 h-14 bg-cover absolute -top-8 left-5 flex items-center justify-center">
         <img
           width={64}
           height={64}
           alt="Sync.dev server image"
           src={isValidUrl(icon) ? icon : "/chat_bot.png"}
-          className="w-[90%] h-auto rounded-full object-cover"
+          className="sm:w-[85%] sm:h-[85%] w-[80%] h-[80%] rounded-full object-cover"
         />
       </div>
       <div className="flex justify-between">
-        <div className="font-bold text-lg pt-1">{name}</div>
+        <div className="font-bold sm:text-lg text-base sm:pt-1 pt-6">
+          {name}
+        </div>
         {!userExist && (
           <div
             className="cursor-pointer flex items-center gap-2 hover:text-blue-500"

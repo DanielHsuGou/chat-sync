@@ -58,7 +58,7 @@ export default function DirectMessages({
       <div className="overflow-y-auto h-full custom-scrollbar">
         {loading && (
           <div className="flex justify-center items-center h-[50%]">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
           </div>
         )}
         {!loading &&
@@ -87,18 +87,22 @@ export default function DirectMessages({
                 }`}
                 onClick={() => onclickDmUser(message._id, name, icon)}
               >
-                <div className="avatar w-10 h-10 rounded-full overflow-hidden mr-3">
-                  <img src={icon} alt="avatar" />
+                <div className="avatar rounded-full overflow-hidden mr-3 lg:w-12 lg:h-12 md:w-11 md:h-11 w-10 h-10">
+                  <img
+                    src={icon}
+                    alt="avatar"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="details flex-grow pt-2">
                   <div className="font-bold text-black">{name}</div>
-                  <div className="text-sm text-gray-400 text-ellipsis h-5 w-36 overflow-hidden">
+                  <div className="text-sm text-gray-400 h-5 sm:w-36 w-24 overflow-hidden whitespace-nowrap text-ellipsis">
                     {lastMsg?.msgText || "No messages"}
                   </div>
                 </div>
                 <div className="flex items-end flex-col justify-center">
-                  <div className="time text-gray-400 text-sm">
-                    {lastMsg?.msgTime || "Start conversation"}
+                  <div className="time text-gray-400 text-xs">
+                    {lastMsg?.msgTime || "No conversation"}
                   </div>
                   <div
                     style={{
@@ -107,7 +111,7 @@ export default function DirectMessages({
                   >
                     {unreadCount !== 0 && (
                       <div className="w-4 h-4 bg-red-500 text-white rounded-full flex items-center justify-center pt-2 pb-2 text-sm">
-                        {unreadCount}
+                        {/* {unreadCount} */}
                       </div>
                     )}
                     {unreadCount === 0 && <VscCheckAll />}

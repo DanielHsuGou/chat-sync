@@ -124,7 +124,7 @@ export default function MessageItem({
       {currentUserId !== userId && (
         <img
           src={icon || "/chat_bot.png"}
-          className="mr-3 mt-3 md:w-12 md:h-12 w-10 h-10 rounded-full"
+          className="mr-3 mt-3 md:w-12 md:h-12 w-10 h-10 rounded-full object-cover"
         />
       )}
       <div className={`flex flex-col items-start`}>
@@ -160,7 +160,7 @@ export default function MessageItem({
                 return (
                   <div key={fileUrl}>
                     <img
-                      className="rounded-lg cursor-pointer xl:max-w-96 lg:max-w-72 max-w-60"
+                      className="rounded-lg cursor-pointer xl:max-w-96 lg:max-w-72 sm:max-w-60 max-w-56"
                       src={fileUrl}
                       alt={`attachment-${index}`}
                       onClick={() => openModal(fileUrl, isImage)}
@@ -238,7 +238,7 @@ export default function MessageItem({
       {userId === currentUserId && (
         <img
           src={icon || "/chat_bot.png"}
-          className="ml-3 mt-3 md:w-12 md:h-12 w-10 h-10 rounded-full"
+          className="ml-3 mt-3 md:w-12 md:h-12 w-10 h-10 rounded-full object-cover"
         />
       )}
 

@@ -22,8 +22,10 @@ export default function TemplateUI({
   category,
   onclickAddServer,
   handleDmFriendClick,
+  currentCategory,
+  setCurrentCategory,
 }) {
-  const [currentCategory, setCurrentCategory] = useState("");
+  // const [currentCategory, setCurrentCategory] = useState("");
   const [submitValue, setSubmitValue] = useState("");
   const [currentUser, setCurrentUser] = useState({});
   const [userLib, setUserLib] = useState([]); // Initialize with an empty array
@@ -56,7 +58,7 @@ export default function TemplateUI({
         const userData = await response.json();
         if (userData) {
           // Check if userData is not null
-          console.log("Fetched User Data:", userData); // Log fetched user data
+          // console.log("Fetched User Data:", userData); // Log fetched user data
           setCurrentUser(userData);
         } else {
           console.error("User data is null or undefined");
@@ -86,7 +88,7 @@ export default function TemplateUI({
         }
 
         const userLibData = await response.json();
-        console.log("userLibData", userLibData);
+        // console.log("userLibData", userLibData);
         if (Array.isArray(userLibData)) {
           // Check if userLibData is an array
           setUserLib(userLibData);
@@ -103,7 +105,7 @@ export default function TemplateUI({
 
   const inputIntermediate = (e) => {
     const searchValue = e.target.value.toLowerCase();
-    console.log("Search value:", searchValue); // Log the search value
+    // console.log("Search value:", searchValue); // Log the search value
 
     if (searchValue && userLib.length > 0) {
       const filtered = userLib.filter(
@@ -111,9 +113,9 @@ export default function TemplateUI({
           user.email.toLowerCase().includes(searchValue) ||
           user.displayName.toLowerCase().includes(searchValue)
       );
-      console.log("Filtered users:", filtered); // Log the filtered users
+      // console.log("Filtered users:", filtered); // Log the filtered users
       setFilteredUsers(filtered);
-      console.log("filtered", filtered);
+      // console.log("filtered", filtered);
     } else if (submitValue === "") {
       setFilteredUsers([]);
     }
@@ -136,16 +138,16 @@ export default function TemplateUI({
 
   const statuses = useMemo(() => {
     const tempStatuses = {}; // Temporary object to hold statuses for each user
-    if (filteredUsers && currentUser) {
-      console.log("Current User:", currentUser); // Log currentUser to ensure it has the correct data
+    if (filteredUsers && currentUser._id) {
+      // console.log("Current User:", currentUser); // Log currentUser to ensure it has the correct data
       filteredUsers.forEach((user) => {
         const isFriend = currentUser.allFriends?.includes(user._id);
         const isPending = user.pendingFriends?.includes(currentUser._id);
         const isBlocked = currentUser.blockedUsers?.includes(user._id);
 
-        console.log(
-          `User: ${user._id}, isFriend: ${isFriend}, isPending: ${isPending}, isBlocked: ${isBlocked}`
-        );
+        // console.log(
+        //   `User: ${user._id}, isFriend: ${isFriend}, isPending: ${isPending}, isBlocked: ${isBlocked}`
+        // );
 
         if (isFriend) {
           tempStatuses[user._id] = {
@@ -638,7 +640,7 @@ export default function TemplateUI({
       <PendingFriendsContext.Provider value={pendingFriends}>
         <AllFriendsContext.Provider value={allFriends}>
           <div className="h-full flex flex-col justify-start">
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex sm:flex-row flex-col justify-between items-center gap-2 w-[90%] sm:w-[98%] lg:w-full lg:ml-0 ml-3">
               <div className="flex lg:gap-4 gap-3 font-bold lg:text-lg text-base items-center">
                 {icon}
                 {name}
@@ -676,21 +678,22 @@ export default function TemplateUI({
               </div>
             </div>
             {currentCategory === "Discover" && (
-              <div className="flex flex-col gap-4 p-5 mt-5">
+              <div className="flex flex-col gap-4 p-5 lg:mt-5 sm:mt-2 mt-1">
                 <div className="font-bold text-xl">Discover Servers</div>
                 <div className="text-gray-400 text-sm">
                   You can find servers with server name.
                 </div>
                 <Search
                   buttonName="Search Server"
-                  placeholder="You can join servers with server name."
+                  placeholder="Search servers here!"
                   submitValue={submitValue}
                   setSubmitValue={setSubmitValue}
+                  currentCategory={currentCategory}
                 />
               </div>
             )}
             {currentCategory === "Add Friend" && (
-              <div className="flex flex-col gap-4 p-5 mt-5">
+              <div className="flex flex-col gap-4 p-5 lg:mt-5 sm:mt-2 mt-1">
                 <div className="font-bold text-xl">Add Friend</div>
                 <div className="text-gray-400 text-sm">
                   Add friends with either their display name or email!
@@ -756,7 +759,7 @@ export default function TemplateUI({
               ""
             )}
             {currentCategory === "Add Friend" && filteredUsers ? (
-              <div className="flex flex-col gap-4 p-5 mt-5 overflow-scroll custom-scrollbar">
+              <div className="flex flex-col gap-4 p-5 sm:mt-3 mt-0 overflow-scroll custom-scrollbar">
                 {filteredUsers.map((user) => {
                   return (
                     <FriendListItem

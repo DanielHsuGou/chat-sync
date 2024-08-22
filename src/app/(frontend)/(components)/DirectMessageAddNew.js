@@ -4,35 +4,37 @@ import { IoCloseCircle } from "react-icons/io5";
 import { FaUserFriends } from "react-icons/fa";
 import { PiChatsFill } from "react-icons/pi";
 
-const DirectMessageAddNew = ({ messages, handleDm }) => {
-  const handleButtonClick = (message) => {
-    console.log("Clicked on:", message.text);
-  };
+const DirectMessageAddNew = ({ messages, handleDm, onClose }) => {
+  // const handleButtonClick = (message) => {
+  //   console.log("Clicked on:", message.displayName);
+  // };
 
   return (
     <div>
-      <div className="bg-white py-2 px-3 w-60 max-h-60 overflow-y-auto custom-scrollbar">
+      <div className="bg-white py-1 w-60 max-h-60 overflow-y-auto custom-scrollbar">
         {messages &&
           messages.map((message, index) => (
             <button
               key={index}
-              className="flex items-center border-b border-gray-200 py-2 w-full text-left hover:bg-gray-100 "
-              onClick={() => handleButtonClick(message)}
+              className="flex items-center border-b border-gray-200 p-1 w-full text-left hover:bg-gray-100 rounded-lg"
+              onClick={() => {
+                handleDm(message._id);
+                onClose();
+              }}
             >
-              <img
-                src={message.icon ? message.icon : "/chat_bot.png"}
-                alt="Profile"
-                className="w-10 h-10 object-cover rounded-full mr-2"
-              />
+              <div className="w-10 h-10 rounded-full mr-2 overflow-hidden">
+                <img
+                  src={message.icon ? message.icon : "/chat_bot.png"}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div className="flex-1">
                 <span className="font-semibold block">
                   {message.displayName}
                 </span>
               </div>
-              <PiChatsFill
-                onClick={handleDm}
-                className="text-blue-500 hover:text-blue-700 cursor-pointer w-6 h-6 md:w-7 md:h-7"
-              />
+              <PiChatsFill className="text-blue-500 hover:text-blue-700 cursor-pointer w-6 h-6 md:w-7 md:h-7" />
             </button>
           ))}
       </div>

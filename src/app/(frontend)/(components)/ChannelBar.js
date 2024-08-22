@@ -55,7 +55,7 @@ const ChannelBar = ({
 
   useEffect(() => {
     if (selectedServer) {
-      console.log("selectedServer: ", selectedServer);
+      // console.log("selectedServer: ", selectedServer);
       setIsChannelLoading(true);
 
       setServerChannels([]);
@@ -72,7 +72,7 @@ const ChannelBar = ({
           if (channelData && channelData.length > 0) {
             setServerChannels(channelData);
 
-            handleChannelClick(channelData[0].channelName, channelData[0]._id);
+            // handleChannelClick(channelData[0].channelName, channelData[0]._id);
             setIsChannelLoading(false);
           }
         } catch (error) {
@@ -240,7 +240,7 @@ const ChannelBar = ({
             <div
               key={channel?.channelName}
               className={`flex justify-between items-center py-2 px-2 cursor-pointer hover:bg-blue-100 rounded-xl ${
-                channel && selectedMiddleComponent === channel._id
+                channel && selectedMiddleComponent === channel.channelName
                   ? "bg-blue-100"
                   : "bg-white"
               }`}
@@ -255,12 +255,12 @@ const ChannelBar = ({
                 channel.channelMsgs.filter((msg) =>
                   msg.msgUnread?.includes(currentUser._id)
                 ).length > 0 && (
-                  <span className="bg-orange-500 text-white rounded-full px-2 text-xs">
-                    {
+                  <span className="bg-orange-500 text-white rounded-full p-2 text-xs h-3 w-3">
+                    {/* {
                       channel.channelMsgs.filter((msg) =>
                         msg.msgUnread?.includes(currentUser._id)
                       ).length
-                    }
+                    } */}
                   </span>
                 )}
             </div>

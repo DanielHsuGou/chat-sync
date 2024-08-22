@@ -66,10 +66,10 @@ export default function Discover({ position, submitValue, setSubmitValue }) {
     <>
       {serverLoading && (
         <div className="flex justify-center items-center h-full">
-          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
         </div>
       )}
-      <div className="custom-scrollbar -mb-2 grid xl:grid-cols-2 grid-cols-1 grid-flow-row auto-rows-min xl:gap-10 gap-10 h-full overflow-scroll pt-10 px-5 pb-0">
+      <div className="custom-scrollbar -mb-2 grid xl:grid-cols-2 grid-cols-1 grid-flow-row auto-rows-min xl:gap-10 gap-10 h-full overflow-scroll sm:py-10 py-8 px-5">
         {!serverLoading &&
           servers &&
           submitValue.length > 0 &&

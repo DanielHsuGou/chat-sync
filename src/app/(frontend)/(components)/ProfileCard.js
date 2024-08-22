@@ -34,7 +34,7 @@ const ProfileCard = ({ onClose, username, onSave, onLogout }) => {
         const userData = await response.json();
         if (userData) {
           // Check if userData is not null
-          console.log("Fetched User Data:", userData); // Log fetched user data
+          // console.log("Fetched User Data:", userData); // Log fetched user data
           setCurrentUser(userData);
           setNewDisplayName(userData.displayName); // Set the default value for newDisplayName
         } else {
@@ -141,7 +141,7 @@ const ProfileCard = ({ onClose, username, onSave, onLogout }) => {
   };
 
   return (
-    <div className="w-80 mx-auto rounded-lg overflow-hidden shadow-lg absolute z-20 bottom-10 left-20 border-1 border-gray-500">
+    <div className="w-80 mx-auto rounded-lg overflow-hidden shadow-lg absolute z-20 bottom-10 sm:left-20 left-10 border-1 border-gray-500">
       <input
         type="file"
         id="fileInput"

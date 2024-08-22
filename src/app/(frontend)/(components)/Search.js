@@ -12,6 +12,7 @@ export default function Search({
   submitValue,
   setSubmitValue,
   inputIntermediate,
+  currentCategory,
 }) {
   const { servers } = useContext(ServerContext);
 
@@ -89,22 +90,24 @@ export default function Search({
         >
           {buttonName}
         </Button>
-        {isDropdownVisible && serverSuggestions.length > 0 && (
-          <div
-            ref={dropdownRef}
-            className="bg-white border border-gray-300 rounded-2xl lg:top-16 top-14 w-full z-40 absolute shadow-md shadow-sky-300/50"
-          >
-            {serverSuggestions.map((server) => (
-              <div
-                key={server._id}
-                className="p-2 cursor-pointer hover:bg-blue-100 rounded-2xl"
-                onClick={() => handleSuggestionClick(server.serverName)}
-              >
-                {server.serverName}
-              </div>
-            ))}
-          </div>
-        )}
+        {isDropdownVisible &&
+          serverSuggestions.length > 0 &&
+          currentCategory === "Discover" && (
+            <div
+              ref={dropdownRef}
+              className="bg-white border border-gray-300 rounded-2xl lg:top-16 top-14 w-full z-40 absolute shadow-md shadow-sky-300/50"
+            >
+              {serverSuggestions.map((server) => (
+                <div
+                  key={server._id}
+                  className="p-2 cursor-pointer hover:bg-blue-100 rounded-2xl"
+                  onClick={() => handleSuggestionClick(server.serverName)}
+                >
+                  {server.serverName}
+                </div>
+              ))}
+            </div>
+          )}
       </form>
     </>
   );

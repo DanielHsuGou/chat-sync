@@ -54,7 +54,7 @@ export const ServerProvider = ({ children }) => {
         const userData = await response.json();
         if (userData) {
           // Check if userData is not null
-          console.log("Fetched User Data:", userData); // Log fetched user data
+          // console.log("Fetched User Data:", userData); // Log fetched user data
           setCurrentUser(userData);
         } else {
           console.error("User data is null or undefined");

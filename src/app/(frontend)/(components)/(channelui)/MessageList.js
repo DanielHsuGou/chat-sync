@@ -62,7 +62,7 @@ export default function MessageList({
   return (
     <div
       ref={scrollContainerRef}
-      className={`flex flex-col-reverse flex-grow p-8 pb-5 overflow-y-auto ${style.scrollableContent}`}
+      className={`flex flex-col-reverse flex-grow sm:p-8 p-2 pb-5 overflow-y-auto ${style.scrollableContent}`}
     >
       <div ref={bottomRef}></div>
       {msg.map((message) => (

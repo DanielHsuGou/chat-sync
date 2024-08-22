@@ -103,7 +103,7 @@ export default function ChatUI({
       setLoading(false);
       // }, 200);
     };
-    fetchMessagesMsgData();
+    messagesId && fetchMessagesMsgData();
   }, [messagesId, setUserMessages]);
 
   useEffect(() => {
@@ -291,7 +291,7 @@ export default function ChatUI({
       onDrop={handleDrop}
       className={`${font.className} ${
         isDragOver ? "border-2 border-dashed border-blue-500" : "border-none"
-      } min-w-[400px] h-full bg-white rounded-2xl flex flex-col shadow-md shadow-sky-400/40`}
+      } sm:min-w-[400px] h-full bg-white rounded-2xl flex flex-col shadow-md shadow-sky-400/40`}
     >
       <ChatHeader icon={icon} name={name} />
       {loading && (

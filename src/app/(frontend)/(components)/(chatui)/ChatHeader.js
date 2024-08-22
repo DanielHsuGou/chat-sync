@@ -6,10 +6,9 @@ export default function ChatHeader({ icon, name, status }) {
     <>
       <div className="flex justify-between items-center px-4 lg:py-3 md:py-2 py-1">
         <div className="flex items-center">
-          <img
-            src={icon}
-            className="mr-3 lg:w-12 lg:h-12 md:w-11 md:h-11 w-10 h-10 rounded-full"
-          />
+          <div className="mr-3 lg:w-12 lg:h-12 md:w-11 md:h-11 w-10 h-10 rounded-full overflow-hidden">
+            <img src={icon} className="w-full h-full object-cover" />
+          </div>
           <div className="flex flex-col md:text-lg text-md font-bold text-black mt-1">
             {name}
 

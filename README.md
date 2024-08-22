@@ -1,32 +1,3 @@
-- libs/mongodb.js
-- models/serverChannel.js
-
-- api/addServerChannelMsg.js
-- api/getServerChannelMsgs.js
-- api/getServerChannels.js
-
-- (channelui)/MessageList.js
-- (components)/ChannelUI.js
-- (pages)/chat/page.js
-
-- app/api/serverChannels/route.js
-- app/api/serverChannels/[id]/route.js
-- app/api/serverChannels/[id]/msgs/route.js
-
-- npm install socket.io socket.io-client
-- .env
-- src/middleware.js
-- npm install dotenv
-- server.js
-- socketServer.js
-- package.json
-
-- delete (backend)/getChannelMsg.js
-
-- (channelui)/Messageitem.js
-- (channelui)/InputMessage.js
-- (channelui)/ChannelHeader.js
-
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

@@ -42,15 +42,18 @@ export default function FriendListItem({
   // } = useContext(ButtonContext);
 
   return (
-    <div className="flex w-full items-center justify-between bg-white rounded-full p-3 px-5 hover:bg-blue-50">
+    <div className="flex w-full items-center justify-between bg-white rounded-full p-3 sm:px-5 px-1 hover:bg-blue-50">
       <div className="flex items-center">
-        <img
-          src={icon ? icon : "/chat_bot.png"}
-          className="mr-3 lg:w-14 lg:h-14 w-12 h-12 rounded-[50%]"
-        />
-        <div className="flex lg:flex-row justify-start flex-col text-lg font-bold">
-          {name} ({email})
-          {status.toLowerCase() === "online" ? (
+        <div className="mr-3 lg:w-14 lg:h-14 md:w-12 md:h-12 w-10 h-10 rounded-full overflow-hidden">
+          <img
+            src={icon ? icon : "/chat_bot.png"}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="flex md:flex-row md:items-center justify-start flex-col md:text-lg text-sm md:gap-5">
+          <p className="font-bold">{name}</p>{" "}
+          <p className="text-gray-400 md:text-sm text-xs">{email}</p>
+          {/* {status.toLowerCase() === "online" ? (
             <div className="text-green-500 lg:ml-10 flex items-center lg:gap-3 gap-2 font-normal lg:text-base text-sm">
               <div className="w-3 h-3 rounded-full bg-green-500"></div>
               <div className="mt-1">Online</div>
@@ -60,7 +63,7 @@ export default function FriendListItem({
               <div className="w-3 h-3 rounded-full bg-gray-400"></div>
               <div className="mt-1">Offline</div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
       <div className="flex gap-3 items-center">
